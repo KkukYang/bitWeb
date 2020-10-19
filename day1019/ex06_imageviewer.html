@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        table tr td {
+            border: 1px solid black;
+        }
+
+        .small img {
+            border: none;
+            margin: 10px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .large {
+            width: 200px;
+            height: 250px;
+        }
+
+        .hover {
+            color: blue;
+            background-color: pink;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $(".small").hover(function () {
+                $(this).parent().addClass("hover");
+                //이벤트가 발새하는 a태그의 href값을 얻는다.
+                var imgname = $(this).attr("href");
+
+                //.large 의 이미지 변경.
+                // $(".large").attr("src", imgname);
+
+                //effect 효과를 추가하여 사진 나타내기.
+                $(".large").fadeTo("slow", 0, function(){
+                    $(".large").attr("src",imgname);
+                }).fadeTo("slow",1);
+            }, function () {
+                $(this).parent().removeClass("hover");
+            });
+        });
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+        <td width="150" align="center">
+            <a href="../image/c1.png" class="small">
+                <img src="../image/c1.png">
+            </a>
+            <p>c1</p>
+        </td>
+        <td rowspan="4" width="350" align="center">
+            <img src="../image/c1.png" class="large">
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="center">
+            <a href="../image/c2.png" class="small">
+                <img src="../image/c2.png">
+            </a>
+            <p>c2</p>
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="center">
+            <a href="../image/c3.png" class="small">
+                <img src="../image/c3.png">
+            </a>
+            <p>c3</p>
+        </td>
+    </tr>
+    <tr>
+        <td width="150" align="center">
+            <a href="../image/c4.png" class="small">
+                <img src="../image/c4.png">
+            </a>
+            <p>c4</p>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

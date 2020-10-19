@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #songlist{
+            position:absolute;
+            left: 400px;
+            top: 20px;
+            border:5px inset gray;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            m = document.getElementById("mymusic");
+            btn = document.getElementById("btn");
+            btn2 = document.getElementById("btn2");
+            btn3 = document.getElementById("btn3");
+
+            btn.addEventListener("click", toggleMusic, false);
+            btn2.addEventListener("click", init, false);
+            btn3.addEventListener("click", gonext, false);
+            m.addEventListener("timeupdate", show, false);
+
+            sel = document.getElementById("sel");
+            m.src = "../media/" + sel.value;
+            song.innerHTML = sel.value;
+
+            sel.onchange = function(){
+                m.src = "../media/" + this.value;
+                song.innerHTML = this.value;
+                btn.click();
+            }
+        }
+
+        function toggleMusic(){
+            if(m.paused){
+                m.play();
+                btn.innerHTML = "일시정지";
+            } else{
+                m.pause();
+                btn.innerHTML = "음악재생";
+            }
+        }
+        function init() {
+            m.currentTime = 0;
+        }
+
+        function gonext() {
+            m.currentTime += 2;
+        }
+
+        function show() {
+            var tot = parseInt(this.currentTime);
+            var h = parseInt(tot / 60);
+            var m = tot % 60;
+            var s = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+            document.getElementById("t").innerHTML = s;
+
+            var duration = parseInt(this.duration);
+            if(!isNaN(duration)){
+                console.log(this.duration);
+                var h2 = parseInt(duration/60);
+                var m2 = duration%60;
+            }
+            s = (h2 < 10 ? "0" : "") + h2 + ":" + (m2 < 10 ? "0" : "") + m2;
+            document.getElementById("t").innerHTML += " (총 시간"+s+")";
+        }
+    </script>
+</head>
+<body>
+<h2 id="song"></h2>
+<audio src="../media/08.%20버스커%20버스커%20-%20동경소녀.mp3" id="mymusic" controls="controls"></audio>
+<br>
+<button id="btn">play</button>
+<button id="btn2">&lt;&lt;</button>
+<button id="btn3">&gt;&gt;</button>
+<div id="t" style="font-size: 20px;">00:00</div>
+
+<div id="songlist" >
+    <select id="sel" size="10">
+        <option selected="selected">01-서영은-꽃이 진다 (후궁 제왕의 첩 ver.).mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option><option>001-박효신-야생화.mp3</option>
+        <option>001-박효신-야생화.mp3</option>
+
+    </select>
+</div>
+
+</body>
+</html>

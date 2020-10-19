@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<h1>JQuery</h1>
+<h3>chapter 1 selector study.</h3>
+<ul>
+    <li>class</li>
+    <li>id</li>
+</ul>
+<h3>chapter 2 event study.</h3>
+<ul>
+    <li class="select">click</li>
+    <li>bind</li>
+</ul>
+<script type="text/javascript">
+    //전체 태그중 h1~h6의 헤더 태그에만 적용.
+    $("*:header").css("border","3px inset orange");
+
+    $("li.select").css({
+        "color":"red",
+        "font-weight":"bold"
+    });
+
+    $("li:not(.select)").css("background-color","#ffddff");
+
+</script>
+</body>
+</html>

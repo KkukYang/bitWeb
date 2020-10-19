@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        #chicken{
+            position: absolute;
+            left: 100px;
+            z-index: 2;
+            cursor: pointer;
+        }
+        #wall{
+            position: absolute;
+            left:200px;
+            z-index: 1;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function(){
+           var imgChicken = $("#chicken");
+           var imgWall = $("#wall");
+
+           imgChicken.click(function(){
+               imgChicken.animate({
+                   left:"0px"
+               }, 500, function(){
+                   imgChicken.css("z-index",0);
+               }).animate({
+                   left:"100px"
+               }, "slow");
+               /*animate(css, 시간, 끝나고 함수)*/
+               // setTimeout(function(){
+               //     imgChicken.css("z-index",0);
+               // },200);
+           });
+        });
+    </script>
+</head>
+<body>
+<div id="container">
+    <img src="../image/c1.png" id="chicken">
+    <img src="../image/c2.png" id="wall">
+</div>
+</body>
+</html>

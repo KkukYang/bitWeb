@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<ul>
+    <li>one</li>
+    <li>two</li>
+    <li>three</li>
+    <li>four</li>
+    <li>five</li>
+    <li>six</li>
+    <li>seven</li>
+
+    <script type="text/javascript">
+        $("li:first, li:last").css("background-color","orange");
+        $("li:eq(2)").css("color","green");
+        $("li:lt(4)").css("border","2px dotted red");
+        $("li:gt(4)").css("text-decoration","underline");
+        /*lt 보다미만 / gt 보다초과 / le 이하 / ge 이상*/
+    </script>
+</ul>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>계산기</title>
+    <style type="text/css">
+        #num {
+            width: 430px;
+            font-size: 28px;
+            text-align: right;
+            padding: 5px;
+        }
+
+        .stbtn1 {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 30px;
+            color: red;
+            cursor: pointer;
+        }
+
+        .stbtn2 {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 30px;
+            color: red;
+            cursor: pointer;
+        }
+
+        .stbtn3 {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 30px;
+            color: red;
+            cursor: pointer;
+        }
+
+        #container {
+            padding: 10px;
+            border: 7px groove gray;
+            width: 460px;
+        }
+    </style>
+    <script type="text/javascript">
+        var su1, su2, op;
+        var bDot, bFirst;
+        var n;
+        var ct;
+
+        window.onload = function () {
+            bDot = false;
+            bFirst = true;
+            n = document.getElementById("num");
+            ct = document.getElementById("container");
+
+            document.getElementById("btn1").onclick = function (){
+                if(this.innerHTML == "hide"){
+                    // ct.style.visibility = "hidden";
+                    ct.style.display = "none";
+                    this.innerHTML = "calculator";
+                } else {
+                    // ct.style.visibility = "visible";
+                    ct.style.display = "";
+                    this.innerHTML = "hide";
+                }
+            }
+            document.getElementById("btn2").onclick = function (){
+
+            }
+        }
+
+        function goNum(su) {
+            if (bFirst) {
+                n.value = su;
+                bFirst = false;
+            } else {
+                n.value += su;
+            }
+        }
+
+        function goClear() {
+            su1 = "";
+            su2 = "";
+            op = "";
+            bDot = false;
+            bFirst = true;
+            n.value = "0";
+        }
+
+        function goCE() {
+            su2 = "";
+            bDot = false;
+            bFirst = true;
+            n.value = "0";
+        }
+
+        function goOper(oper) {
+            op = oper;
+            bDot = false;
+            bFirst = true;
+
+            su1 = n.value.trim();
+        }
+
+        function goDot() {
+            if (!bDot) {
+                n.value += ".";
+                bDot = true;
+            }
+        }
+
+        function goBack() {
+            var len = n.value.length;
+
+            if (n.value.indexOf(".") == len - 1) {
+                // alert("dot");
+                bDot = false;
+            }
+            var s = n.value.substring(0, len - 1);
+            n.value = s;
+
+            if (s == "") {
+                n.value = "0";
+                bFirst = true;
+            }
+        }
+
+        function goSign() {
+            n.value *= -1;
+        }
+
+        function goEqual() {
+            su2 = n.value;
+            su1 = eval(su1 + op + su2);
+            n.value = su1;
+        }
+    </script>
+</head>
+<body>
+<button type="button" id="btn1">hide</button>
+<button type="button" id="btn2">hide</button>
+<br>
+
+<div id="container" >
+    <input type="text" value="0" id="num"><br><br>
+    <button type="button" class="stbtn1" onclick="goSign()">+/-</button>
+    <button type="button" class="stbtn1" onclick="goCE()">CE</button>
+    <button type="button" class="stbtn1" onclick="goClear()">C</button>
+    <button type="button" class="stbtn1" onclick="goBack()"><-</button>
+    <br>
+    <input type="button" value="7" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="8" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="9" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="/" class="stbtn3" onclick="goOper(value)">
+    <br>
+    <input type="button" value="4" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="5" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="6" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="*" class="stbtn3" onclick="goOper(value)">
+    <br>
+    <input type="button" value="1" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="2" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="3" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="+" class="stbtn3" onclick="goOper(value)">
+    <br>
+    <input type="button" value="0" class="stbtn2" onclick="goNum(value)">
+    <input type="button" value="." class="stbtn3" onclick="goDot(value)">
+    <input type="button" value="=" class="stbtn3" onclick="goEqual(value)">
+    <input type="button" value="-" class="stbtn3" onclick="goOper(value)">
+    <br>
+</div>
+<img src="../image/c1.png">
+</body>
+</html>
