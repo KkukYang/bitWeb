@@ -1,0 +1,19 @@
+{
+  "jikwon": [
+    {
+      "deptNum": 100,
+      "name": "Lee321",
+      "address": "Seoul1"
+    },
+    {
+      "deptNum": 123,
+      "name": "Lee123",
+      "address": "Seoul2"
+    },
+    {
+      "deptNum": 321,
+      "name": "양국현",
+      "address": "Seoul3"
+    }
+  ]
+}

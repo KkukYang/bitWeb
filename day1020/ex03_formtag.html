@@ -24,6 +24,12 @@
 <input type="radio" name="fcolor" value="pink">핑크색
 <h2>변경하고 싶은 배경색을 선택해주세요</h2>
 <input type="color" id="bcolor" value="#ffffff">
+<h2>운전면허가 있으면 체크해주세요</h2>
+운전면허:<input type="checkbox" id="lic">
+<h2>이미지를 선택하세요</h2>
+<input type="file" id="myfile">
+<!--이미지 출력할 곳-->
+<img id="showimg" style="position: absolute; left: 600px; top: 50px; max-width: 300px;">
 <hr>
 <h1>have a nice day!!</h1>
 <script type="text/javascript">
@@ -40,6 +46,33 @@
             "background-color":$(this).val()
         });
     });
+
+    $("input[type='checkbox']").change(function(){
+        $("h1").css({
+            "background-color":"yellow"
+        });
+    });
+
+    $("#myfile").change(function(){
+       // console.log($(this).files.length +","+$(this).files[0]);
+        if($(this)[0].files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $("#showing").attr("src",e.target.result);
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        }
+    });
+
+    function readUrl(input){
+        if(input.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $("#showing").attr("src", e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
 </script>
 </body>
