@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+#checkbox값얻기
+<!--$('input[name="radio"]').val([num.toString()]);-->
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        table {
+            border: 2px inset gray;
+        }
+
+        table tr, table th, table td {
+            border-bottom: 1px solid gray;
+            border-right: 1px solid gray;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $("#frm").submit(function (event) {
+                event.preventDefault();//기본이벤트는 무효화(action호출)
+
+                var s = "<h3>데이터 읽기</h3>";
+                s += "이름:" + $("#txtname").val() + "<br>";
+                var lic = $("#chklic").is(":checked") ? "있음" : "없음";
+                s += "운전면허:" + lic + "<br>";
+                // var nara = $("#selnara").val(); //선택한 숫자 vlaue
+                // var nara = $("#selnara").text(); //모든 나라 한글로 option다나옴
+                var nara = $("#selnara option:selected").text();
+
+                s += nara + "는 " + $("#selnara option:selected").val() + "만원이 필요합니다.<br>";
+
+                console.log(frm.fcolor.value);
+                s += "글자색" + frm.fcolor.value + "<br>";
+
+                var bcolor = $("input[name='bcolor']:checked").val();
+                s += "배경색:" + bcolor + "<br>";
+
+                var hobby_length = $("input[name='hobby']:checked").length;
+                var hobby_val = "";//$("input[name='hobby']:checked").val();
+
+                console.log("hobby : "+hobby_length+","+hobby_val);//hobby : 4,낚시
+                $("input[name='hobby']:checked").each(function(index){
+                   if($(this).is(":checked")){
+                       hobby_val+=$(this).val()+",";
+                   }
+                });
+
+                if(hobby_length == 0){
+                    s+="취미:없음<br>";
+                } else{
+                    hobby_val = hobby_val.substring(0,hobby_val.length-1);
+                    s+="취미:"+hobby_val+"<br>";
+                }
+
+                $("#result").html(s).css({
+                    "color": frm.fcolor.value,
+                    "background-color": bcolor,
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<form action="#" id="frm" name="frm">
+    <table>
+        <caption><b>입력폼</b></caption>
+        <tr>
+            <th width="100" bgcolor="#ffdd33">이름</th>
+            <td width="300">
+                <input type="text" style="width: 100px;" id="txtname" required="required">
+            </td>
+        </tr>
+        <tr>
+            <th width="100" bgcolor="#ffdd33">운전면허</th>
+            <td width="300">
+                <input type="checkbox" style="width: 100px;" id="chklic">있음
+            </td>
+        </tr>
+        <tr>
+            <th width="100" bgcolor="#ffdd33">여행갈나라</th>
+            <td width="300">
+                <select id="selnara">
+                    <option value="230">태국</option>
+                    <option value="560">유렵일주</option>
+                    <option value="670">미국일주</option>
+                    <option value="150">일본</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th width="100" bgcolor="#fd3">글자색</th>
+            <td>
+                <input type="radio" name="fcolor" checked="checked" value="black">검정색
+                <input type="radio" name="fcolor" value="green">초록색
+                <input type="radio" name="fcolor" value="purple">보라색
+                <input type="radio" name="fcolor" value="yellow">민트색
+            </td>
+        </tr>
+        <tr>
+            <th width="100" bgcolor="#fd3">글자색</th>
+            <td>
+                <input type="radio" name="bcolor" checked="checked" value="black">검정색
+                <input type="radio" name="bcolor" value="green">초록색
+                <input type="radio" name="bcolor" value="purple">보라색
+                <input type="radio" name="bcolor" value="yellow">민트색
+            </td>
+        </tr>
+        <tr>
+            <th width="100" bgcolor="#fd3">취미선택</th>
+
+            <td><input type="checkbox" name="hobby" value="낚시">낚시
+            <input type="checkbox" name="hobby" value="여행">여행
+            <input type="checkbox" name="hobby" value="게임">게임
+            <input type="checkbox" name="hobby" value="골프">골프</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center" bgcolor="#fd3">
+                <button type="submit">데이터 저장</button>
+                <button type="reset">데이터 초기화</button>
+            </td>
+        </tr>
+    </table>
+</form>
+<div id="result" style="font-size: 15px;margin-top: 30px"></div>
+</body>
+</html>
