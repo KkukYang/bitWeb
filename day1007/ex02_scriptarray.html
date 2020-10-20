@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+        table td, table th{
+            border-bottom: 1px solid gray;
+            border-right: 1px dotted gray;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <tr>
+        <th>num</th>
+        <th>name</th>
+        <script type="text/javascript">
+            var flowers="qwer,asdf,wert,zxcv".split(",");
+            for(var i = 0; i<flowers.length; i++){
+                var s = "<tr><td>" + (i + 1) + "</td></tr>";
+                document.write(s);
+            }
+        </script>
+    </tr>
+</table>
+
+<hr>
+
+<table>
+    <tr>
+        <th>num</th><th>image</th>
+    </tr>
+    <script type="text/javascript">
+        var im = new Array();
+        im[0] = "../image/c1.png";
+        im[1] = "../image/c2.png";
+        im[2] = "../image/c3.png";
+        im[3] = "../image/c4.png";
+
+        for(var i = 0; i<im.length; i++){
+            document.write("<tr></tr><td>" + (i+1) + "</td>");
+            document.write("<td><img src='" + im[i] +"' </td></tr>");
+        }
+    </script>
+</table>
+</body>
+</html>

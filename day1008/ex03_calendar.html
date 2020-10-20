@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #selyear, #selmonth {
+            width: 130px;
+            font-size: 20pt;
+        }
+
+        #calview {
+            font-size: 15pt;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 500px;
+            border: 2px solid gray;
+        }
+
+        table th, table td {
+            border: 1px solid gray;
+            text-align: center;
+        }
+
+        table tr {
+            height: 50px;
+            line-height: 50px;
+        }
+    </style>
+    <script type="text/javascript">
+        date = new Date();
+        curryear = date.getFullYear();
+        currmonth = date.getMonth() + 1;
+    </script>
+    <script type="text/javascript">
+        window.onload = function () {
+            writecalendar(curryear, currmonth);
+
+            var myyear, mymonth;
+            myyear = curryear;
+            mymonth = currmonth;
+
+            document.getElementById("selyear").onchange = function () {
+                myyear = this.value;
+                writecalendar(myyear, mymonth);
+            }
+            document.getElementById("selmonth").onchange = function () {
+                mymonth = this.value;
+                writecalendar(myyear, mymonth);
+            }
+        }
+
+        function getEndDay(month){
+            var endday;
+            switch (parseInt(month)) {
+                case 2:
+                    if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+                        endday = 29;
+                    } else {
+                        endday = 28;
+                    }
+                    break;
+                case 4:
+                case 6:
+                case 9:
+                case 11:
+                    endday = 30;
+                    break;
+                default:
+                    endday = 31;
+                    break;
+            }
+
+            return endday;
+        }
+
+        function writecalendar(year, month) {
+            // alert(year + "," + month);
+            year = parseInt(year);
+            month = parseInt(month);
+
+            cv = document.getElementById("calview");
+            var mydate = new Date(year, month - 1, 1);
+            var myweek = mydate.getDay();
+            var endday = 0;
+            var preendday = 0;
+
+            endday = getEndDay(month);
+            preendday = getEndDay((month==1)?12:month-1);
+
+
+            var s = "";
+            s = "<table>";
+            s += "<caption>" + year + "년 " + month + " 월 달력</caption>";
+            s += "<thead><th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th></thead>";
+            s += "<tbody>";
+            s += "<tr>";
+
+            for (i = preendday - myweek + 1; i <= preendday; i++) {
+                // s += "<td>&nbsp;</td>";
+                s += "<td style='color: gray;'>"+i+"</td>";
+            }
+            for (i = 1; i <= endday; i++) {
+                myweek++;
+                if(myweek%7 == 1){
+                    s += "<td style='color: red; font-weight: bold;'>" + i + "</td>";
+                } else if(myweek%7 == 0){
+                    s += "<td style='color: blue; font-weight: bold;'>" + i + "</td>";
+                }
+                else{
+                    s += "<td style='color: black; font-weight: bold;'>" + i + "</td>";
+                }
+
+                if (myweek % 7 == 0 && i != endday) {
+                    s += "</tr><tr>"
+                }
+            }
+
+            if (myweek % 7 == 0) {
+                s += "</tr>";
+            } else {
+                var a = 1;
+                while (true) {
+                    myweek++;
+                    s += "<td style='color: gray;'>" + a++ + "</td>";
+                    if (myweek % 7 == 0) {
+                        s += "</tr>";
+                        break;
+                    }
+                }
+            }
+
+            s += "</tbody>";
+            s += "</table>";
+
+            cv.innerHTML = s;
+        }
+    </script>
+</head>
+<body>
+
+<h2>달력 출력 - 년도와 월을 선택.</h2>
+
+<div id="container">
+    <select id="selyear">
+        <script type="text/javascript">
+            for (i = curryear; i >= 1960; i--) {
+                if(i == curryear){
+                    var s = "<option selected>" + i + "</option>";
+                    document.write(s);
+                } else{
+                    var s = "<option>" + i + "</option>";
+                    document.write(s);
+                }
+            }
+        </script>
+    </select>
+
+    <select id="selmonth">
+        <script type="text/javascript">
+            for (i = 1; i <= 12; i++) {
+                if (i == currmonth) {
+                    s = "<option selected>" + i + "</option>";
+                } else {
+                    s = "<option>" + i + "</option>";
+                }
+                document.write(s);
+            }
+        </script>
+    </select>
+</div>
+<div id="calview"></div>
+</body>
+</html>

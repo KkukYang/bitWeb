@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            k = document.getElementById("k");
+            v = document.getElementById("v");
+            e = document.getElementById("entries");
+            s = document.getElementById("save");
+            r = document.getElementById("remove");
+
+            showAll();
+
+            //storage에 변화가 생기면 함수 자동호출.
+            window.addEventListener("storage", showAll, false);
+
+            s.addEventListener("click", save,false);
+            e.onchange = function (){
+                // alert(this.key);
+                var sel = e.options[e.selectedIndex];
+                k.value = sel.value;
+                v.value = localStorage.getItem(k.value);
+                // v.value = localStorage.getItem(k.value);
+                // alert(sel.value);
+            }
+
+            r.addEventListener("click", remove, false);
+
+
+        }
+
+        function showAll() {
+            //기존 select option 모두 삭제.
+            e.innerHTML = "";
+            for(var i = 0;i<localStorage.length; i++){
+                var k = localStorage.key(i);
+
+                //new Option(실제 보이는값, value값);
+                e.options[e.options.length] = new Option(k + ":" + localStorage[k],k);
+            }
+        }
+
+        function save(){
+            //textbox 안에 있는 것들이 storage로 들어가는 것.
+            localStorage[k.value] = v.value;
+            k.value = "";
+            v.value = "";
+            showAll();
+        }
+
+        function remove(){
+            // localStorage.removeItem(k.value);
+            delete localStorage[k.value];
+            showAll();
+            k.value = "";
+            v.value = "";
+        }
+    </script>
+</head>
+<body>
+
+
+<h1>local storage</h1>
+key : <input type="text" id="k"><br>
+value : <input type="text" id="v"><br>
+<button type="button" id="save">저장</button>
+<button type="button" id="remove">삭제</button>
+<br>
+<select id="entries" size="10" style="width: 200px;">
+
+</select>
+
+
+</body>
+</html>

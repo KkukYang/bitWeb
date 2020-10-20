@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<b>b tag <span class="s1">span tag</span><span class="s2">span tag too</span></b>
+<br>
+<div class="one">
+    first div
+    <div class="hana">div one</div>
+    <div>div two</div>
+    <div>div three</div>
+</div>
+<div class="two">
+    second div
+    <div class="hana">div one</div>
+    <div>div two</div>
+    <div>div three</div>
+</div>
+<script type="text/javascript">
+    $("div.one>div.hana").parent().parent().css("border", "2px dotted red");
+    $("span.s1").parent().siblings().css({
+        "border": "3px inset gold",
+        "width": "200px"
+    });
+
+    $("div").children(".hana").css("color","red");
+    $("div").find(".hana").css("color","orange");
+</script>
+</body>
+</html>

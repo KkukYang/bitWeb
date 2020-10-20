@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        .box{
+            border: 5px inset gold;
+        }
+    </style>
+</head>
+<body>
+<img src="../image/c1.png" id="img1">
+<script type="text/javascript">
+    $("#img1").bind({
+        click:function(){
+            var arr = ["c1.png","c2.png","c3.png","c4.png","c5.png"];
+            var idx = parseInt(Math.random()*5);
+            $(this).attr("src","../image/"+arr[idx]);
+        },
+        mouseover:function(){
+            $(this).addClass("box");
+        },
+        mouseout:function(){
+            $(this).removeClass("box");
+        }
+    })
+</script>
+<hr>
+<h1>오늘은 월요일</h1>
+<script type="text/javascript">
+    $("h1").bind("mouseenter mouseleave", function(){
+       $(this).toggleClass("box");
+    });
+</script>
+</body>
+</html>

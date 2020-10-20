@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    var year = 2020;
+    var month = 2;
+    var d1 = new Date(year, month - 1, 1);
+    var week = d1.getDay();
+    document.write(year + "년 " + month + "월 확인 <br>");
+    document.write("요일숫자:" + week + "<br>");
+
+    var endday = 0;
+    switch (month) {
+        case 2:
+            if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+                endday = 29;
+            } else {
+                endday = 28;
+            }
+            break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            endday = 30;
+            break;
+        default:
+            endday = 31;
+            break;
+    }
+    document.write(endday);
+</script>
+</body>
+</html>

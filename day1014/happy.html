@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>세팅 성공</h1>
+<script type="text/javascript">
+    document.write("글자색:" + localStorage.text_color + "<br>");
+    document.write("배경색:" + localStorage.bg_color + "<br>");
+    document.write("글자크기:" + localStorage.text_size + "<br>");
+</script>
+<!--a태그의 href에는 파일명일 경우는 그냥 쓰면 되고 자바스크립트 함수일 경우에는 앞에 javascript를 붙여야 한다.
+안붙이면 파일명으로 인식-->
+<a href="javascript:history.back()">뒤로 가기</a>
+<a href="ex01_localstorage.html">세팅파일로 가기</a><!--파일명으로 가면 현재 입력했던 것들이 지워짐.-->
+</body>
+</html>

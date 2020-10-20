@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<h1></h1>
+<script type="text/javascript">
+    //div에 랜덤하게 배경색 지정 한 후 해당 div 를 클릭하면 배경색값을 얻어서 h1태그에 출력
+    $("div").css({
+        "width": "70px",
+        "height": "70px",
+        "border": "3px inset gray",
+        "cursor": "pointer",
+        "float": "left",
+        "margin-right": "10px",
+        "font-size":"2em"
+    });
+    //바깥여백 margin 안쪽 padding
+
+    var d = $("div");
+    // alert(d.length);
+/*    for (i = 0; i < d.length; i++) {
+        var red = parseInt(Math.random() * 256);
+        var green = parseInt(Math.random() * 256);
+        var blue = parseInt(Math.random() * 256);
+        var color = "rgb(" + red + "," + green + "," + blue + ")";
+        $("div").eq(i).css("background-color", color);
+    }*/
+
+    $("div").each(function(index){
+        //item은 해당 div tag.
+        // console.log(item+","+index);
+        // console.log(index);
+        var red = parseInt(Math.random() * 256);
+        var green = parseInt(Math.random() * 256);
+        var blue = parseInt(Math.random() * 256);
+        var color = "rgb(" + red + "," + green + "," + blue + ")";
+        $(this).css("background-color",color);
+        //해당 div안에 index출력.
+        //innerHTML ->(html)
+        $(this).text(index);
+    });
+
+    $("div").click(function (){
+         $("h1").text( $(this).css("background-color"));
+    });
+
+</script>
+</body>
+</html>

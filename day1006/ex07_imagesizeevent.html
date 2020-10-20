@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div.imggame{
+            position: absolute;
+            left: 200px;
+            top: 100px;
+            text-align: center;
+            width: 500px;
+        }
+        div.imggame button{
+            border: 3px groove gray;
+            width: 120px;
+            height: 30px;
+            border-radius: 100px;
+        }
+        div.imggame button:hover{
+            background-color: red;
+            color: yellow;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+/*
+        var image = document.getElementById("image");
+        document.getElementById("btn1").onclick = function (){
+            var w = image.style.width;
+            w = parseInt(w, 10) + 10;
+            image.style.width = w + "px";
+        }
+        document.getElementById("btn2").onclick = function (){
+            var w = image.style.width;
+            w = parseInt(w, 10) - 10;
+            image.style.width = w + "px";
+        }
+        */
+
+
+    </script>
+</head>
+<body>
+
+<div class="imggame">
+    <button type="button" id="btnLarge">large</button>
+    <button type="button" id="btnSmall">small</button>
+    <br><br>
+    <img src="../image/c3.png" style="width: 300px" id="myimg">
+</div>
+
+<script type="text/javascript">
+    var myimg = document.getElementById("myimg");
+    document.getElementById("btnLarge").onclick = function (){
+        var w = myimg.style.width;
+        w = parseInt(w, 10) + 10;
+        myimg.style.width = w + "px";
+    }
+
+    document.getElementById("btnSmall").onclick = function (){
+        var w = myimg.style.width;
+        w = parseInt(w, 10) - 10;
+        myimg.style.width = w + "px";
+    }
+</script>
+
+<!--
+
+<button type="button" id="btn1">alert test</button>
+<button type="button" id="btn2">confirm test</button><br>
+<img src="../image/c3.png" id="image">
+
+-->
+</body>
+</html>
