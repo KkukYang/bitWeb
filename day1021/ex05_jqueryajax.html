@@ -39,6 +39,18 @@
             });
             $("button:eq(1)").click(function () {
 
+                $.get("ex05_testxml.tld",function(data){
+                    var s = "";
+                    $(data).find("bang").each(function (i, element){
+                        // var n = $(this);
+                        var n = $(element);
+                        s+="<b>"+i+"</b><br>";
+                        s+="name:"+n.attr("name")+"<br>";
+                        s+="part:"+n.attr("part")+"<br>";
+                        s+="msg:"+n.find("msg").text()+"<hr>";
+                    });
+                    $("#out2").html(s).hide().slideDown("slow");
+                });
             });
         });
     </script>

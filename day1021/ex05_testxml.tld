@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 
 <bangsong>
     <bang name="kbs" part="one">
-        <msg>????</msg>
+        <msg>공영방송</msg>
     </bang>
     <bang name="mbc" part="two">
-        <msg>????</msg>
+        <msg>만나면 좋은친구</msg>
     </bang>
     <bang name="sbs" part="three">
-        <msg>???? ??</msg>
+        <msg>재미있는 방송</msg>
     </bang>
 </bangsong>
