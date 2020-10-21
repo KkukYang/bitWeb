@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<bangsong>
+    <bang name="kbs" part="one">
+        <msg>????</msg>
+    </bang>
+    <bang name="mbc" part="two">
+        <msg>????</msg>
+    </bang>
+    <bang name="sbs" part="three">
+        <msg>???? ??</msg>
+    </bang>
+</bangsong>
