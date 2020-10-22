@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--coss domain 에 필요한 js파일-->
+    <script type="text/javascript" src="../js/jquery.ajax-cross-origin.min.js"></script>
+    <style type="text/css">
+        h3 {
+            cursor: pointer;
+            float: left;
+            width: 100px;
+            height: 60px;
+            background-color: #1d3b25;
+            line-height: 60px;
+            margin: 10px;
+            text-align: center;
+            border: 3px inset gray;
+            color: white;
+
+        }
+
+        h3:hover {
+            background-color: orange;
+            color: red;
+        }
+
+        #out {
+            position: absolute;
+            top: 200px;
+            left: 30px;
+            font-size: 14px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $("h3").click(function () {
+                var title = $(this).text();
+
+                $("#out").html(title + " 지역 일기 예보<br><br>");
+                $.ajax({
+                    crossOrigin: true,
+                    type: "post",
+                    url: "https://www.weather.go.kr/weather/forecast/mid-term-rss3.jsp?stnId=109",
+                    dataType: "xml",
+                    // accessControlAloowOrigin:"*",
+                    // "Access-Control-Allow-Origin": "*",
+                    success: function (data) {
+                        console.log(data);
+                        // var desc = $(data).find("description:eq(0)").text() + "<br><br>";
+                        // desc += "일기예보 제공 날짜:" + $(data).find("pubDate").text() + "<br><hr>";
+                        //
+                        // $("#out").html(function (i, html) {
+                        //     return html + desc + "<br>";
+                        // });
+                    },
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+<h2>지역별 일주일 일기예보 확인하기</h2>
+<h3>서울</h3>
+<h3>인천</h3>
+<h3>수원</h3>
+<h3>파주</h3>
+<h3>춘천</h3>
+<hr>
+<div id="out"></div>
+</body>
+</html>

@@ -13,13 +13,13 @@
         $(function () {
             $("#btn1").click(function () {
                 $.ajax({
-                    type: "post",
+                    type: "get",
                     url: "../day1021/persontojson.jsp",
                     dataType: "json",
                     success: function (data) {
                         console.log(data);
                         var s = "";
-                        s+="<table class=\"table table-hover\">";
+                        s+="<table class='table table-hover'>";
                         s+="<thead>";
                         s+="<tr>";
                         s+="<th>name</th>";
@@ -33,7 +33,7 @@
                         s+="<tbody>";
                         $.each(data.person, function(index, element){
                             s+="<tr>";
-                            s+="<td>"+element.name+"</td>>";
+                            s+="<td>"+element.name+"</td>";
                             s+="<td>"+element.blood+"</td>";
                             s+="<td>"+element.java+"</td>";
                             s+="<td>"+element.spring+"</td>";
@@ -44,7 +44,7 @@
 
                         s+="</tbody>";
                         s+="</table>";
-                        $("#out").html(s).hide().slideDown("slow");
+                        $("#out").html(s).hide().slideDown("fast");
                     },
                     statusCode: {
                         404: function () {
@@ -64,21 +64,34 @@
             $("#btn2").click(function () {
                 $.ajax({
                     type: "get",
-                    url: "../day1021/ex05_testxml.xml",
+                    url: "../day1020/sawonxml.jsp",
                     dataType: "xml",
                     success: function (data) {
                         console.log(data);
-                        // var s = "";
-                        // s+=$(data).find("title").text() + "<br>";
-                        // $(data).find("bang").each(function (i, element){
-                        //     // var n = $(this);
-                        //     var n = $(element);
-                        //     s+="<b>"+i+"</b><br>";
-                        //     s+="name:"+n.attr("name")+"<br>";
-                        //     s+="part:"+n.attr("part")+"<br>";
-                        //     s+="msg:"+n.find("msg").text()+"<hr>";
-                        // });
-                        // $("#out").html(s).hide().slideDown("slow");
+                        var s = "";
+                        s+="<table class='table table-hover'>";
+                        s+="<thead>";
+                        s+="<tr>";
+                        s+="<th>name</th>";
+                        s+="<th>buseo</th>";
+                        s+="<th>pay</th>";
+                        s+="<th>tax</th>";
+                        s+="</tr>";
+                        s+="</thead>";
+                        s+="<tbody>";
+                        $(data).find("item").each(function (i, element){
+                            // var n = $(this);
+                            var n = $(element);
+                            s+="<tr>";
+                            s+="<td>"+n.find("name").text()+"</td>";
+                            s+="<td>"+n.find("buseo").text()+"</td>";
+                            s+="<td>"+n.find("pay").text()+"</td>";
+                            s+="<td>"+n.find("tax").text()+"</td>";
+                            s+="</tr>";
+                        });
+                        s+="</tbody>";
+                        s+="</table>";
+                        $("#out").html(s).hide().slideDown("slow");
                     },
                     statusCode: {
                         404: function () {
@@ -102,7 +115,7 @@
 <button type="button" id="btn1" class="btn btn-danger btn-sm">json data</button>
 <button type="button" id="btn2" class="btn btn-warning btn-sm">xml data</button>
 <hr>
-<div id="out" class="container">
+<div id="out" >
 
 </div>
 </body>
