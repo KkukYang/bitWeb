@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <bangsong>
+    <title>Ajax study</title>
     <bang name="kbs" part="one">
         <msg>공영방송</msg>
     </bang>
