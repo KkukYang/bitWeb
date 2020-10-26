@@ -13,29 +13,31 @@
     <script type="text/javascript" src="../js/jquery.ajax-cross-origin.min.js"></script>
 </head>
 <body>
-<h3>폼태그에 데이터 입력 후 jsp로 보내기 연습</h3>
-이름 : <input type="text" id="name"><br>
-전화번호 : <input type="text" id="hp"><br>
-<button type="button" id="btn">ajax 로 서버에 보내기</button>
-
-<div id="result"></div>
+<h2> 폼 통째로 보내기</h2>
+<form id="frm">
+    name:<input type="text" name="name"><br>
+    age:<input type="text" name="age"><br>
+    addr:<input type="text" name="addr"><br>
+    <button type="button" id="btn">send</button>
+</form>
 <script type="text/javascript">
     $("#btn").click(function () {
-        var name = $("#name").val();
-        var hp = $("#hp").val();
-        // console.log(name+","+hp);
+        var data = $("#frm").serialize();
+        console.log(data);
+
         $.ajax({
             type: "get",
-            url: "ex01_test.jsp",
-            dataType: "xml",
+            url: "ex02_readdata.jsp",
+            dataType: "html",
             // data: {
-            //     "name": name,
-            //     "hp": hp
+            //     "name": data.name,
+            //     "age": data.age,
+            //     "addr": data.addr
             // },
-            data:"name="+name+"&hp="+hp,
+            data:data,
             success: function (data) {
                 console.log("data : " + data);
-                $("#result").html($(data).text());
+                // $("#result").html($(data).text());
             },
             statusCode: {
                 404: function () {
@@ -48,8 +50,8 @@
                     console.log("success.");
                 }
             }
-        }).done(function(data){
-            console.log("data : " + data);
+        }).done(function(result){
+            console.log(result);
         });
     });
 </script>
