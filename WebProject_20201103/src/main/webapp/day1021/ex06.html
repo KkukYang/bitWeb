@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ex06</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("button:eq(0)").click(function () {
+                $.getJSON("ex06_json.json", function (data) {
+                    var s = "";
+                    $.each(data, function (idx, item) {
+                        s += "<b>" + idx + "번 데이터</b><br>";
+                        s += "name : " + item.name + "<br>";
+                        if (item.hobby != null) {
+                            s += "hobby : ";
+                            $.each(item.hobby, function (idxHobby, itemHobby) {
+                                s += "[" + itemHobby + "]";
+                            });
+                            s += "<br>";
+                        } else {
+                            s += "null<br>";
+                        }
+                        s += "age : " + item.age + "<br>";
+                        /*for of array
+                        for in object entries*/
+
+                        s += "score : ";
+                        for (const element in item.score) {
+                            s += "[" + element + "]";
+                        }
+                        s += "<br>";
+                        s += "<hr>";
+                    });
+                    $("#out1").html(s).hide().slideDown("slow");
+                });
+            });
+
+            $("button:eq(1)").click(function () {
+                $.get("ex06_xml.xml", function (data) {
+                    var s = "";
+                    $(data).find("data").each(function (i, element) {
+                        // var n = $(this);
+                        var n = $(element);
+                        s += "<b>" + i + "</b><br>";
+                        s += "id:" + n.attr("id") + "<br>";
+                        s += "name:" + n.attr("name") + "<br>";
+
+
+                        s += "subject:" + n.find("subject").text() + "<br>";
+                        s += "photo:" + n.find("photo").text() + "<br>";
+                        s += "<img src='" + n.find("photo").text() + "'>" + "<hr>";
+
+                    });
+                    $("#out2").html(s).hide().slideDown("slow");
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<button type="button" class="btn btn-danger btn-lg">json data read</button>
+<div id="out1"></div>
+<hr>
+<button type="button" class="btn btn-warning btn-lg">xml data read</button>
+<div id="out2"></div>
+</body>
+</html>

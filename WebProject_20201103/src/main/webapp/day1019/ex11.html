@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        td, th {
+            border: 2px solid black;
+            text-align: center;
+        }
+
+        th {
+            background-color: orange;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            var array = new Array();
+
+            $("#frm").submit(function (e) {
+                e.preventDefault();
+
+                var data = {
+                    "name": $("#name").val(),
+                    "age": $("#age").val(),
+                    "addr": $("#addr").val()
+                };
+
+                array.push(data);
+                $("#name").val("");
+                $("#age").val("");
+                $("#addr").val("");
+            });
+
+            $("#btn_write").click(function () {
+                $("#frm").show();
+                $("#print").hide();
+            });
+
+            $("#btn_print").click(function () {
+                $("#frm").hide();
+                $("#print").show();
+
+                var out = $("#print");
+                var s = "<table id='table_print'>" +
+                    "<tr><th>name</th><th>age</th><th>address</th></tr>" +
+                    "</table>";
+                var s1 = "";
+
+                out.empty();
+                $.each(array, function (index, item) {
+                    // s1 += "name:" + item.name + " age:" + item.age
+                    // + " addr:" + item.addr+"<br>";
+                    s1 += "<tr><td>" + item.name + "</td><td>" + item.age + "</td><td>" + item.addr + "</td></tr>";
+                });
+                out.append(s);
+                $("#table_print").append(s1);
+            });
+        });
+    </script>
+</head>
+<body>
+<button type="button" id="btn_write">작성</button>
+<button type="button" id="btn_print">출력</button>
+<div id="out">
+    <form action="#" name="frm" id="frm" hidden>
+        <table>
+            <tr>
+                <td>
+                    name
+                </td>
+                <td>
+                    <input type="text" id="name" required="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    age
+                </td>
+                <td>
+                    <input type="text" id="age" required="required">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    address
+                </td>
+                <td>
+                    <input type="text" id="addr" required="required">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" id="submit" value="추가">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div id="print" style="border: 2px solid black; width: 300px;" align="center" hidden></div>
+</div>
+</body>
+</html>

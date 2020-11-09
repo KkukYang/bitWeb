@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style type="text/css">
+        /*style 내에서의 주석처리*/
+        /*class 가 hello 인 경우 무조건 적용*/
+        .hello {
+            font-size: 1.5em; /*1.5배크기*/
+        }
+
+        /*span 태그에서 class가 hello인 경우에만 적용*/
+        span.hello {
+            color: blue;
+        }
+
+        /*div 태그중 id가 one인 태그의 바로 아래 태그중 span 태그에 class가 happy인곳 에만 적용*/
+        /*>는 바로 아래 태그만 해당, 공백은 모든 하위 태그*/
+        div#one > span.happy {
+            background-color: orange;
+        }
+
+        /*id가 one인 태그에만 적용*/
+        #one {
+            border: 1px solid gray;
+            margin-bottom: 20px;
+            width: 300px;
+            height: 150px;
+        }
+
+        /*div 태그의 하위태그중 b태그에만 적용*/
+        div b {
+            border: 5px dotted green;
+        }
+
+        /*span 태그중 class명이 happy인 태그에만 적용*/
+        span.happy {
+            border-style: groove;
+            border-width: 5px;
+            border-color: gray;
+        }
+    </style>
+
+
+</head>
+<body>
+<div id="one">
+    <b class="hello">id one아래의 class hello</b>
+    <br>
+    <span class="happy hello">id one 아래의 class happy</span>
+
+</div>
+<div id="two">
+    <b class="hello">id two under class hello</b>
+    <br>
+    <span class="happy">id two under class happy</span>
+</div>
+<div id="three">
+    <b class="hello">id three under class hello</b>
+    <br>
+    <span class="happy">id three under class happy</span>
+</div>
+
+</body>
+</html>

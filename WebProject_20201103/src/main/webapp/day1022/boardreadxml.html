@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+#bootstrap 아이콘 span tag
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--coss domain 에 필요한 js파일-->
+    <script type="text/javascript" src="../js/jquery.ajax-cross-origin.min.js"></script>
+
+    <style type="text/css">
+        #btn {
+            margin-right: 100px;
+            width: 95%;
+            border: 1px solid black;
+            text-align: right;
+        }
+
+        span {
+            font-size: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #btn span:hover {
+            color: red;
+        }
+
+        #out1 {
+            border: 1px solid black;
+        }
+    </style>
+    <script type="text/javascript">
+        var isTogglePlus = false;
+        var dataAll = null;
+
+        function showTable(data) {
+            $("#out2").hide();
+            $("#out3").hide();
+            // $("#out1").show();
+
+            var s = "";
+            s += "<table class='table table-hover'>";
+            s += "<thead>";
+            s += "<tr>";
+            s += "<th>num</th>";
+            s += "<th>writer</th>";
+            s += "<th>subject</th>";
+            s += "<th>content</th>";
+            s += "<th>photo</th>";
+            s += "<th>writeday</th>";
+            s += "</tr>";
+            s += "</thead>";
+            s += "<tbody>";
+            $(data).find("board").each(function (i, itemBoard) {
+                var n = $(itemBoard);
+                s += "<tr>";
+                s += "<td>" + n.attr("num") + "</td>";
+                s += "<td>" + n.attr("writer") + "</td>";
+                s += "<td>" + n.find("subject").text() + "</td>";
+                s += "<td>" + n.find("content").text() + "</td>";
+                s += "<td>" + n.find("photo").text() + "<br>";
+                if (isTogglePlus) {
+                    s += "<img width='50' src='../image/" + n.find("photo").text() + "'>";
+                }
+                s += "</td>";
+                s += "<td>" + n.find("writeday").text() + "</td>";
+                s += "<td>"
+                    + "<span class='glyphicon glyphicon-star-empty'></span>"
+                    + "<span class='glyphicon glyphicon-trash'></span>"
+                    + "</td>";
+                s += "</tr>";
+            });
+            s += "</tbody>";
+            s += "</table>";
+            $("#out1").html(s).hide().slideDown("slow");
+        }
+
+        function showLargeImage(data) {
+            $("#out1").hide();
+            $("#out3").hide();
+            // $("#out2").show();
+            $("#out2").css("float", "left");
+
+            var s = "";
+            $(data).find("board").each(function (i, itemBoard) {
+                var n = $(itemBoard);
+                s += "<img width='200' style='margin-left: 20px;' src='../image/" + n.find("photo").text() + "'>";
+            });
+            $("#out2").html(s).hide().slideDown("slow");
+        }
+
+        function showSmallImage(data) {
+            $("#out1").hide();
+            $("#out2").hide();
+            // $("#out3").show();
+
+            var s = "";
+            $(data).find("board").each(function (i, itemBoard) {
+                var n = $(itemBoard);
+                s += "<img width='50' style='margin-left: 20px;' src='../image/" + n.find("photo").text() + "'>";
+            });
+            $("#out3").html(s).hide().slideDown("slow");
+        }
+
+        $(function () {
+            $("#icon_plus-minus").click(function () {
+                isTogglePlus = !isTogglePlus;
+                $(this).removeClass();
+                if (isTogglePlus) {
+                    $(this).addClass("glyphicon glyphicon-minus");
+                } else {
+                    $(this).addClass("glyphicon glyphicon-plus");
+                }
+
+                showTable(dataAll);
+            });
+
+            $("#icon_list").click(function () {
+                $("#icon_large,#icon_small,#icon_list").css("color", "black");
+                $(this).css("color", "lime");
+                showTable(dataAll);
+            });
+
+            $("#icon_large").click(function () {
+                $("#icon_large,#icon_small,#icon_list").css("color", "black");
+                $(this).css("color", "lime");
+                showLargeImage(dataAll);
+            });
+
+            $("#icon_small").click(function () {
+                $("#icon_large,#icon_small,#icon_list").css("color", "black");
+                $(this).css("color", "lime");
+                showSmallImage(dataAll);
+            });
+
+            $(".glyphicon-star-empty").click(function () {
+                $(this).removeClass();
+                $(this).addClass("glyphicon-star");
+                $(this).css("color", "yellow");
+            });
+
+            $(".glyphicon-star").click(function () {
+                $(this).removeClass();
+                $(this).addClass("glyphicon-star-empty");
+                $(this).css("color", "black");
+            });
+
+            $.ajax({
+                type: "get",
+                url: "boardtoxml.jsp",
+                dataType: "xml",
+                success: function (data) {
+                    console.log(data);
+                    dataAll = data;
+                    showTable(dataAll);
+                },
+                statusCode: {
+                    404: function () {
+                        alert("json not found.");
+                    },
+                    500: function () {
+                        alert("server error.");
+                    },
+                    200: function () {
+                        console.log("success.");
+                    }
+                }
+            }).done(function (result) {
+                console.log(result);
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="btn">
+    <span id="icon_plus-minus" class="glyphicon glyphicon-plus"></span><!--glyphicon glyphicon-minus-->
+    <span id="icon_list" style="color: lime;" class="glyphicon glyphicon-th-list"></span>
+    <span id="icon_small" class="glyphicon glyphicon-th"></span>
+    <span id="icon_large" class="glyphicon glyphicon-th-large"></span>
+</div>
+
+<div id="out1"></div>
+<div id="out2"></div>
+<div id="out3"></div>
+</body>
+</html>

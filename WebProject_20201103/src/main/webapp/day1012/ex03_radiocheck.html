@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            p = document.getElementById("p");
+            pout = document.getElementById("pout");
+            document.getElementById("btnp").onclick = function () {
+                num = parseInt(Math.random() * 71) + 30;
+                // p.value = num;
+                var n = 0;
+                // pout.innerHTML = "<b>" + num + "</b>";
+
+                inter = setInterval(function () {
+                    // clearInterval(inter);
+                    ++n;
+                    p.value = n;
+                    pout.innerHTML = "<b>" + n + "</b>"
+                    if (n == num) {
+                        clearInterval(inter);
+                    }
+                }, 30);
+            }
+
+            r = document.getElementById("result");
+            document.getElementById("btnresult").onclick = function () {
+                var s = "<h4> 결과 출력 </h4>";
+                // s+="최종 학력 :" + frm.grade.value + "<br>";
+                //
+                // for(i = 0;i<frm.grade.length; i++){
+                //     if(frm.grade[i].checked){
+                //         s+=frm.grade[i].value + "<br>";
+                //     }
+                // }
+
+                var blang = false;
+                for (i = 0; i < frm.lang.length; i++) {
+                    if (frm.lang[i].checked) {
+                        blang = true;
+                        s += frm.lang[i].value;
+                    }
+                }
+                if (!blang) {
+                    s += "없음";
+                }
+
+                s += "<br>";
+                s += "여행하고싶은나라 : " + frm.nara.value + "<br>";
+
+
+                r.innerHTML = s;
+            }
+        }
+    </script>
+</head>
+<body>
+<form action="#" name="frm">
+    <table>
+        <cation><b>radio & checkbox</b></cation>
+        <tr height="30">
+            <td>
+                <b>select</b><br>
+                <input type="radio" name="grade" value="고등학교">고등학교&nbsp;
+                <input type="radio" name="grade" value="전문대">전문대&nbsp;
+                <input type="radio" name="grade" value="4년제대" checked="checked">4년제대&nbsp;
+                <input type="radio" name="grade" value="대학원">대학원&nbsp;
+            </td>
+        </tr>
+        <tr height="30">
+            <td>
+                <b>select 2</b>
+                <input type="checkbox" name="lang" value="c언어">c언어&nbsp;
+                <input type="checkbox" name="lang" value="java" checked="checked">java&nbsp;
+                <input type="checkbox" name="lang" value="html" checked="checked">html&nbsp;
+                <input type="checkbox" name="lang" value="spring">spring&nbsp;
+            </td>
+        </tr>
+        <tr height="30">
+            <td>
+                <b>input</b>
+                <input type="text" name="nara" list="country" size="10">
+                <datalist id="country">
+                    <option value="하와이"></option>
+                    <option value="미국"></option>
+                    <option value="태국"></option>
+                    <option value="프랑스"></option>
+                    <option value="스페인"></option>
+                    <option value="캐나다"></option>
+                </datalist>
+            </td>
+        </tr>
+        <tr height="30">
+            <td>
+                <b>input</b>
+                <input type="number" name="height" min="150" max="190" step="5" value="160" placeholder="키">
+                &nbsp;&nbsp;&nbsp;
+                <input type="number" name="weight" min="45" max="90" step="2" value="55" placeholder="몸무">
+            </td>
+        </tr>
+        <tr height="30">
+            <td>
+                <b>what is</b>
+                <progress id="p" value="0" max="100" style="width: 200px;"></progress>
+                &nbsp;
+                <span id="pout">0</span>&nbsp;&nbsp;
+                <button type="button" id="btnp">start</button>
+            </td>
+        </tr>
+        <tr height="30">
+            <td align="center">
+                <button type="button" id="btnresult" style="width: 200px; font-size: 13px;">
+                    결과확인
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div id="result"></div>
+</form>
+</body>
+</html>

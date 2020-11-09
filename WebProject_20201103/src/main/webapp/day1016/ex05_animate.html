@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<button type="button">animation 1</button>
+<button type="button">animation 2</button>
+<div id="box1"></div>
+<script type="text/javascript">
+    $("#box1").css({
+        "width": "100px",
+        "height": "100px",
+        "border": "5px solid",
+        borderColor: "red"
+    });
+
+    $("button:eq(0)").click(function () {
+        $("#box1").animate({
+            'width': '500px',
+            borderWidth: "20px",
+            'opacity': '0.2',
+            marginLeft: '300px'
+        });
+    });
+    $("button:eq(1)").click(function () {
+        $("#box1").animate({
+            "width": "100px",
+            "height": "100px",
+            "border": "5px solid",
+            borderColor: "red",
+            marginLeft: '0px'
+        });
+    });
+</script>
+</body>
+</html>

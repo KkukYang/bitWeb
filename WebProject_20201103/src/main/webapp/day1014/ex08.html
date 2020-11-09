@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script type="text/javascript">
+    var arr = ["c1.png", "c2.png", "c3.png", "c4.png", "c5.png"];
+    $("div").css({
+        "width": "70px",
+        "height": "70px",
+        "border": "3px inset gray",
+        "cursor": "pointer",
+        "float": "left",
+        "margin-right": "10px",
+        "font-size": "2em"
+    });
+
+    $("div").each(function (index) {
+        $(this).css({
+            "background-image": "url('../image/" + arr[index] + "')",
+            // "background-size": "70px 70px"
+            // "background-repeat":"no-repeat",
+            // "background-size":"cover"
+            "background-size": "100% 100%"
+        });
+
+        $(this).click(function () {
+            $("div").css({
+                "border": "3px inset gray"
+            });
+
+            $(this).css({
+                "border": "10px inset gray"
+            });
+        });
+    });
+</script>
+</body>
+</html>

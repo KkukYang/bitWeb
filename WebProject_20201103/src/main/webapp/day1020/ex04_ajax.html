@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+#json/xml parsing load
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>-->
+    <style type="text/css">
+        table {
+            border: 2px inset gray;
+        }
+
+        table tr, table th, table td {
+            border-bottom: 1px solid gray;
+            border-right: 1px solid gray;
+        }
+    </style>
+    <script type="text/javascript">
+        //서버와 데이터 통신을 하기위한 변수 선언.
+        var xhr;
+
+        window.onload = function () {
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+                // alert("크롬,ie");
+            } else {
+                alert("ajax를 지원하지 않는 브라우저 입니다.");
+            }
+            document.getElementById("btn1").onclick = function () {
+                xhr.open("get", "ex04_testxml.xml", true);//비동기 방식true.
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            // alert("성공\n"+xhr.responseText);
+                            var data = xhr.responseXML;
+                            //item 단위로 데이터 가져오기.
+                            var itemNode = data.getElementsByTagName("item");
+                            // alert(itemNode.length);
+                            var codeNode = data.getElementsByTagName("code");
+                            var sangNode = data.getElementsByTagName("sang");
+
+                            var s = "<table><caption>xml read</caption>";
+                            s += "<tr bgcolor = 'orange'>";
+                            s += "<th width='100'>code</th>";
+                            s += "<th width='100'>sang</th>";
+                            s += "</tr>";
+
+                            for (i = 0; i < itemNode.length; i++) {
+                                s += "<tr>";
+                                s += "<td>" + codeNode[i].childNodes[0].nodeValue + "</td>";
+                                s += "<td>" + sangNode[i].childNodes[0].nodeValue + "</td>";
+                                s += "</tr>";
+                            }
+
+                            s += "</table>"
+                            document.getElementById("out1").innerHTML = s;
+                        } else {
+                            alert("error:" + xhr.status);
+                        }
+                    }
+                }
+                xhr.send(null);//get 방식일 땐 null;
+            }
+            document.getElementById("btn2").onclick = function () {
+                //json file open
+                xhr.open("get", "ex04_testjson.json", true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            jsonwrite();
+                        }
+                    }
+                }
+
+                xhr.send(null);
+            }
+
+        }
+
+        function jsonwrite() {
+            var data = xhr.responseText;
+            // console.log(data);
+            var s = "<table><caption>json read</caption>";
+            s += "<tr bgcolor = 'orange'>";
+            s += "<th width='100'>num</th>";
+            s += "<th width='100'>name</th>";
+            s += "<th width='100'>address</th>";
+            s += "</tr>";
+
+            /*JSON.stringify()
+            JSON.parse()*/
+            var parseData = JSON.parse(data);
+            for (i = 0; i < parseData.jikwon.length; i++) {
+                s += "<tr>";
+                s += "<td>" + parseData.jikwon[i].deptNum + "</td>";
+                s += "<td>" + parseData.jikwon[i].name + "</td>";
+                s += "<td>" + parseData.jikwon[i].address + "</td>";
+                s += "</tr>";
+            }
+
+            s += "</table>"
+            document.getElementById("out2").innerHTML = s;
+        }
+    </script>
+</head>
+<body>
+<h2>순수 자바스크립트로 xml과 json 데이터 처리하기</h2>
+<button type="button" id="btn1">xml데이터 읽기</button>
+<h3>xml 읽은결과</h3>
+<div id="out1"></div>
+<hr>
+<button type="button" id="btn2">json 데이터 읽기</button>
+<h3>json 읽은 결과</h3>
+<div id="out2"></div>
+</body>
+</html>

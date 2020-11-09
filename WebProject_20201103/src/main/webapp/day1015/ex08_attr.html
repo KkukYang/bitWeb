@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<img alt="" src="" id="img1">
+<img alt="" src="" id="img2">
+
+<h2 id="open" width="500px" height="500px">window open</h2>
+<script type="text/javascript">
+    $("#img1").attr("src", "../image/c1.png");
+
+    $("#img2").attr({
+        "src": "../image/c2.png",
+        "width": "200px",
+        "title": "Who are you?"
+    });
+
+    $("#open").mouseover(function () {
+        $(this).css({
+            "cursor": "pointer",
+            "background-color": "lime"
+        })
+    });
+
+    $("#open").mouseout(function () {
+        $(this).css({
+            "background-color": "white"
+        })
+    });
+
+    $("#open").click(function () {
+        var w = $("#open").attr("width");
+        var h = $("#open").attr("height");
+        // alert($("#open").css("width") + ", " + $("#open").css("height"));
+        // alert(w + ", " + h);
+        window.open("ex07_addclass_each.html", "", "width=" + w + "px, height=" + h + "px, top=100px, left=100px");
+    });
+
+    $("#img1").mouseover(function () {
+        $(this).attr({
+            "src": "../image/c3.png"
+        });
+    });
+
+    $("#img1").mouseleave(function () {
+        $(this).attr({
+            "src": "../image/c1.png"
+        });
+    });
+
+</script>
+</body>
+</html>

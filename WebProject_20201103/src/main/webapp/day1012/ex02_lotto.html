@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        div > div {
+            border: 1px solid gray;
+            width: 70px;
+            height: 70px;
+            text-align: center;
+            line-height: 70px;
+            font-size: 3em;
+            font-weight: bold;
+            margin-right: 20px;
+            border-radius: 100px;
+        }
+
+        #one {
+            background-color: #db2c2c;
+        }
+
+        #two {
+            background-color: #852738;
+        }
+
+        #three {
+            background-color: #1fae8d;
+        }
+
+        #four {
+            background-color: #d1ffc0;
+        }
+
+        #five {
+            background-color: #ffedc0;
+        }
+
+        #six {
+            background-color: #f1c0ff;
+        }
+
+        div {
+            float: left;
+        }
+
+        #btnstart, #btnstop {
+            width: 70px;
+            height: 70px;
+            border: 1px solid gray;
+            text-align: center;
+            line-height: 70px;
+            font-size: 17px;
+            font-weight: bold;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById("btnstart").onclick = function () {
+                var lotto = new Array(6);
+                interval = setInterval(function () {
+                    for (i = 0; i < lotto.length; i++) {
+                        lotto[i] = parseInt(Math.random() * 45) + 1;
+                        for (j = 0; j < i; j++) {
+                            if (lotto[j] == lotto[i]) {
+                                i--;
+                                break;
+                            }
+                        }
+                    }
+
+                    one.innerHTML = lotto[0];
+                    two.innerHTML = lotto[1];
+                    three.innerHTML = lotto[2];
+                    four.innerHTML = lotto[3];
+                    five.innerHTML = lotto[4];
+                    six.innerHTML = lotto[5];
+                }, 1000);
+            }
+            document.getElementById("btnstop").onclick = function () {
+                clearInterval(interval);
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <div id="one">1</div>
+    <div id="two">1</div>
+    <div id="three">1</div>
+    <div id="four">1</div>
+    <div id="five">1</div>
+    <div id="six">1</div>
+</div>
+
+<input type="button" id="btnstart" value="start">
+<input type="button" id="btnstop" value="stop">
+
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!--coss domain 에 필요한 js파일-->
+    <script type="text/javascript" src="../js/jquery.ajax-cross-origin.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--    <link rel="stylesheet" href="/resources/demos/style.css">-->
+    <!--    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&display=swap" rel="stylesheet">
+    <title>Title</title>
+    <style type="text/css">
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        table {
+            font-size: 1em;
+        }
+
+        .ui-draggable, .ui-droppable {
+            background-position: top;
+        }
+
+        #dialog-confirm {
+            font-family: 'Henny Penny', cursive;
+        }
+
+        #buttons, #inputform, #updateform {
+            margin-bottom: 30px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $("#inputform").hide();
+            $("#updateform").hide();
+            listData();
+
+            $("#btnform").click(function () {
+                // $("#inputform").toggle();//show hide 합쳐놓은것 번갈아 나옴.
+                $("#inputform").slideToggle("fast");//show hide 합쳐놓은것 번갈아 나옴.
+            });
+
+            $("#btnadd").click(function () {
+                var name = $("#name").val();
+                var address = $("#address").val();
+
+                if (name == "") {
+                    alert("input name");
+                    $("#name").focus();
+                    return;
+                }
+                if (address == "") {
+                    alert("input address");
+                    $("#address").focus();
+                    return;
+                }
+
+                //get license, gender
+                var driver = $("input[name='driver']:checked").val();
+                var gender = $("input[name='gender']:checked").val();
+                var birthday = $("#birthday").val();
+                console.log(driver + "," + gender + "," + birthday);
+
+                addData(name, address, driver, gender, birthday);
+            });
+
+            $(document).on("click", "button.delete", function () {
+                var num = $(this).attr("num");
+                var name = $(this).attr("name");
+                // var ans = confirm("num : "+num); //ans true/false
+                // console.log(ans);m
+
+                $("#dialog-confirm").attr("title", "Will you Delete " + name + "?")
+                    .dialog({
+                        resizable: false,
+                        height: "auto",
+                        width: 400,
+                        modal: true,
+                        buttons: {
+                            "Yes!!": function () {
+                                deleteData(num);
+                                $(this).dialog("close");
+                            },
+                            "Wait!!": function () {
+                                $(this).dialog("close");
+                            },
+                            Cancel: function () {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+            });
+
+            $(document).on("click", "button.update", function () {
+                var num = $(this).attr("num");
+                $.ajax({
+                    type: "get",
+                    url: "sawongetdata.jsp",
+                    dataType: "html",//"json" 으로 하면 JSON.parse(data); 필요없이 바로 data.num 이렇게 바로 가능.
+                    data: {
+                        "num": num,
+                    },
+                    success: function (data) {
+                        console.log("data:" + data);
+
+                        //모달 팝업 내 세팅.
+                        var jsonData = JSON.parse(data);
+                        $("#up_num").val(jsonData.num);
+                        $("#up_name").val(jsonData.name);
+                        $("#up_address").val(jsonData.address);
+                        $("#up_birthday").val(jsonData.birthday);
+
+                        $("input[name='up_gender']").prop("checked", false);
+                        $("input[value='" + jsonData.gender + "']").prop("checked", true);
+                        $("input[name='up_driver']").prop("checked", false);
+                        $("input[value='" + jsonData.driver + "']").prop("checked", true);
+
+                        $("#myModal").modal();
+                    },
+                });
+
+
+            });
+
+            $("#btnupdate").click(function () {
+                var name = $("#up_name").val();
+                var address = $("#up_address").val();
+                var num = $("#up_num").val();
+
+                if (name == "") {
+                    alert("input name");
+                    $("#name").focus();
+                    return;
+                }
+                if (address == "") {
+                    alert("input address");
+                    $("#address").focus();
+                    return;
+                }
+
+                //get license, gender
+                var driver = $("input[name='up_driver']:checked").val();
+                var gender = $("input[name='up_gender']:checked").val();
+                var birthday = $("#up_birthday").val();
+                console.log(driver + "," + gender + "," + birthday);
+
+                updateData(num, name, address, driver, gender, birthday);
+            });
+
+
+        });//$(function(){
+
+        function updateData(num, name, address, driver, gender, birthday) {
+            $.ajax({
+                type: "post",
+                url: "sawonupdate.jsp",
+                dataType: "html",
+                data: {
+                    "num": num,
+                    "name": name,
+                    "address": address,
+                    "driver": driver,
+                    "gender": gender,
+                    "birthday": birthday,
+                },
+                success: function (data) {
+                    console.log("data:" + data);
+                    listData();
+                },
+            });
+        }
+
+        function deleteData(num) {
+            console.log("num : " + num);
+            $.ajax({
+                type: "get",
+                url: "sawondelete.jsp",
+                dataType: "html",
+                data: {
+                    "num": num,
+                },
+                success: function (data) {
+                    console.log("deleteData() : " + data);
+                    listData();
+                },
+            });
+        }
+
+        function addData(name, address, driver, gender, birthday) {
+            $.ajax({
+                type: "post",
+                url: "sawoninsert.jsp",
+                dataType: "html",
+                data: {
+                    "name": name,
+                    "address": address,
+                    "driver": driver,
+                    "gender": gender,
+                    "birthday": birthday
+                },
+                success: function (data) {
+                    console.log(data);
+                    listData();
+                    $("#name").val("");
+                    $("#address").val("");
+                },
+            });
+        }
+
+        function listData() {
+            $.ajax({
+                type: "post",
+                url: "sawonlist.jsp",
+                dataType: "xml",
+                success: function (data) {
+                    console.log(data);
+                    var str = "<table class='table table-hover'>" +
+                        "<caption><b>total : " + $(data).find("sawon").length + "</b></caption>" +
+                        "<thead>" +
+                        "<tr align='center'>" +
+                        "<th>Num</th>" +
+                        "<th>Name</th>" +
+                        "<th>Driver</th>" +
+                        "<th>Gender</th>" +
+                        "<th>Address</th>" +
+                        "<th>Birthday</th>" +
+                        "</tr>" +
+                        "</thead>" +
+                        "<tbody>";
+
+                    $(data).find("sawon").each(function (index, element) {
+                        var sawon = $(element);
+                        var num = sawon.attr("num");
+                        var name = sawon.find("name").text();
+                        var driver = sawon.find("driver").text();
+                        var gender = sawon.find("gender").text();
+                        var address = sawon.find("address").text();
+                        var birthday = sawon.find("birthday").text();
+
+                        str += "<tr>" +
+                            "<td>" + num + "</td>" +
+                            "<td>" + name + "</td>" +
+                            "<td>" + driver + "</td>" +
+                            "<td>" + gender + "</td>" +
+                            "<td>" + address + "</td>" +
+                            "<td>" + birthday + "</td>" +
+                            "<td>" +
+                            "<button type='button' class='update btn btn-info btn-xs' " +
+                            "num='" + num + "'>update</button>" +
+                            "&nbsp;&nbsp;" +
+                            "<button type='button' class='delete btn btn-danger btn-xs' " +
+                            "num='" + num + "' name='" + name + "'>delete</button>" +
+                            "</td>" +
+                            "</tr>";
+                    });
+
+                    str += "</tbody>";
+                    str += "</table>";
+                    $("#sawonlist").html(str).hide().slideDown("fast");
+                },
+            });
+        }
+    </script>
+</head>
+<body>
+<div id="dialog-confirm" title="" style="display: none;">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+
+    </p>
+</div>
+<div id="buttons">
+    <button type="button" id="btnform" class="btn btn-sm btn-warning"
+            style="width: 150px;">AddSawonInfo
+    </button>
+    <!--    <button type="button" id="btnlist" class="btn btn-sm btn-warning"-->
+    <!--            style="width: 150px;">PrintSawonInfo-->
+    <!--    </button>-->
+</div>
+<div id="inputform">
+    <table class="table table-bordered" style="width: 400px">
+        <caption><b>Add Sawon Info</b></caption>
+        <tr>
+            <th bgcolor="cyan" style="width: 100px; text-align: center;">Name</th>
+            <td>
+                <input type="text" id="name" style="width: 100px;"
+                       class="form-control input-sm">
+            </td>
+        </tr>
+        <tr>
+            <th bgcolor="cyan" style="width: 100px; text-align: center;">License</th>
+            <td>
+                <input type="radio" name="driver" value="없음" checked="checked"> 없음
+                <input type="radio" name="driver" value="2종보통"> 2종보통
+                <input type="radio" name="driver" value="1종보통"> 1종보통
+            </td>
+        </tr>
+        <tr>
+            <th bgcolor="cyan" style="width: 100px; text-align: center;">Gender</th>
+            <td>
+                <input type="radio" name="gender" value="Man" checked="checked"> Man
+                <input type="radio" name="gender" value="Woman"> Woman
+            </td>
+        </tr>
+        <tr>
+            <th bgcolor="cyan" style="width: 100px; text-align: center;">Address</th>
+            <td>
+                <input type="text" id="address" style="width: 250px;"
+                       class="form-control input-sm">
+            </td>
+        </tr>
+        <tr>
+            <th bgcolor="cyan" style="width: 100px; text-align: center;">Birthday</th>
+            <td>
+                <input type="date" id="birthday" value="2020-10-01"
+                       class="form-control input-sm">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button type="button" id="btnadd"
+                        class="btn btn-sm btn-danger">Save Info
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="sawonlist">
+    sawonList
+</div>
+
+<div id="sawonupdate">
+    <div class="container">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header" style="padding:35px 50px;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4><span class="glyphicon glyphicon-lock"></span> Update Sawon Info</h4>
+                    </div>
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <table class="table table-bordered" style="width: 400px">
+                            <caption><b>Add Sawon Info</b></caption>
+                            <tr>
+                                <th bgcolor="cyan" style="width: 100px; text-align: center;">Name</th>
+                                <td>
+                                    <input type="hidden" id="up_num">
+                                    <input type="text" id="up_name" style="width: 100px;"
+                                           class="form-control input-sm">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th bgcolor="cyan" style="width: 100px; text-align: center;">License</th>
+                                <td>
+                                    <input type="radio" name="up_driver" value="없음"> 없음
+                                    <input type="radio" name="up_driver" value="2종보통"> 2종보통
+                                    <input type="radio" name="up_driver" value="1종보통"> 1종보통
+                                </td>
+                            </tr>
+                            <tr>
+                                <th bgcolor="cyan" style="width: 100px; text-align: center;">Gender</th>
+                                <td>
+                                    <input type="radio" name="up_gender" value="Man"> Man
+                                    <input type="radio" name="up_gender" value="Woman"> Woman
+                                </td>
+                            </tr>
+                            <tr>
+                                <th bgcolor="cyan" style="width: 100px; text-align: center;">Address</th>
+                                <td>
+                                    <input type="text" id="up_address" style="width: 250px;"
+                                           class="form-control input-sm">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th bgcolor="cyan" style="width: 100px; text-align: center;">Birthday</th>
+                                <td>
+                                    <input type="date" id="up_birthday" value="2020-10-01"
+                                           class="form-control input-sm">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <button type="button" id="btnupdate"
+                                            class="btn btn-sm btn-danger" data-dismiss="modal">Update Info
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

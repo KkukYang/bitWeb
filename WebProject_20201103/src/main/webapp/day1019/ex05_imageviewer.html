@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        .imge {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            border: 2px solid black;
+        }
+
+        .imge img {
+            width: 300px;
+        }
+    </style>
+    #링크로직무시
+    <script type="text/javascript">
+        $(function () {
+            //일단 첫번째 사진이 나오도록 한다.
+            $(".imge").hide();
+            $(".imge:eq(0)").fadeIn("slow");
+            $("a.imge").click(function (e) {
+                e.preventDefault();  //href 링크 무시하고 로직 진행.
+                // alert($(this).index());
+                $(this).fadeIn("slow");
+                var next = $(this).index() == 5 ? $(".imge:first") : $(this).next();
+                $(this).fadeOut("slow");
+                next.fadeIn("slow");
+                if ($(this).index() == 5) {
+                    alert("마지막 사진입니다.");
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<h2>이미지를 클릭하면 다음사진이 계속 나옵니다.</h2>
+<a href="../image/c1.png" class="imge">
+    <img src="../image/c2.png">
+</a>
+<a href="" class="imge">
+    <img src="../image/c3.png">
+</a>
+<a href="" class="imge">
+    <img src="../image/c4.png">
+</a>
+<a href="" class="imge">
+    <img src="../image/c5.png">
+</a>
+<a href="" class="imge">
+    <img src="../image/c6.png">
+</a>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LoginPage</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            document.getElementById("frm").onsubmit = function (e) {
+                e.preventDefault();//html tag에서의 링크를 중단시키고, 해당 로직을 타게 한다.
+
+                var passwd = document.getElementById("login_passwd").value;
+                //입력한 값을 로컬스토리지에 저장하기.
+                localStorage.setItem("login_id", document.getElementById("login_id").value);
+                localStorage.setItem("text_color", document.getElementById("login_passwd").value);
+
+                if (parseInt(passwd) == 1234) {
+                    location.href = "success.html";
+                } else {
+                    location.href = "fail.html";
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+<form action="#" id="frm">
+    <ul>
+        <li>
+            <input type="text" id="login_id" required="required"
+                   pattern="[A-Za-z0-9]{4,}" placeholder="아이디">
+            <!-- pattern="[0-9]{3}" 필수입력 숫자 3글자만 가능-->
+            <!-- pattern="[A-Za-z]{3,}" 알파벳만 가능 3글자 이상 가능-->
+            <!--            pattern="[A-Za-z0-9]{4}" 알파벳 숫자 딱 4자리-->
+        </li>
+        <li>
+            <input type="password" id="login_passwd" required="required"
+                   pattern="[A-Za-z0-9]{4}" placeholder="비밀번호">
+        </li>
+        <li>
+            <input type="submit" value="로그인">
+        </li>
+    </ul>
+</form>
+</body>
+</html>

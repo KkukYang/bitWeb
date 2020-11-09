@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var imgarray = new Array();
+            imgarray[0] = "../image/c1.png";
+            imgarray[1] = "../image/c2.png";
+            imgarray[2] = "../image/c3.png";
+            imgarray[3] = "../image/c4.png";
+            imgarray[4] = "../image/c5.png";
+
+            document.getElementById("btn").onclick = function () {
+                for (i = 0; i < myimg.length; i++) {
+                    myimg[i].src = imgarray[i];
+                }
+            }
+
+            document.getElementById("btn2").onclick = function () {
+                for (i = 0; i < myimg.length; i++) {
+                    var rnd = parseInt(Math.random() * 5);
+                    myimg[i].src = imgarray[rnd];
+                }
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<button type="button" id="btn">change image</button>
+<button type="button" id="btn2">change random image</button>
+<br><br>
+
+<img src="../image/1.JPG" width="130" name="myimg">
+<img src="../image/1.JPG" width="130" name="myimg">
+<img src="../image/1.JPG" width="130" name="myimg">
+
+</body>
+</html>

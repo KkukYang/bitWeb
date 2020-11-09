@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script type="text/javascript">
+        //jquery window.onload
+        /*  $(document).ready(function(){
+              alert("load1");
+          });*/
+        $(function () {
+            // alert("load2");
+            $("div.candy>div").css("color", "blue");
+            $("div.candy2>div").css("color", "red");
+            $(".one").css("border", "2px solid red");
+            $(".one").css("font-size", "30px");
+            $("#asdf").css("color", "cyan");
+            $(".two").css("background-color", "orange");
+            $(".three>span:eq(0)").css("border", "3px inset gray");
+            $(".three>span:eq(1)").css("border", "5px inset gray");
+            $(".three>span").eq(1).css("background-color", "gray");
+            $("b.one").click(function () {
+                alert($(this).css("font-size"));//글자 반
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="candy">
+    <div>
+        Happy Day
+    </div>
+    <div class="candy2">
+        <div>
+            Happy Day222222222
+        </div>
+    </div>
+</div>
+<b class="one">jQuery</b><br>
+<h2 class="two one">JavaScript</h2> <!--클래스 중복적용 가능-->
+<b class="three">
+    <span>HTML5</span>
+    <span id="asdf">Spring</span>
+</b>
+</body>
+</html>

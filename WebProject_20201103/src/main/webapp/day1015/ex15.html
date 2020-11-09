@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        #ulRadio li {
+            float: left;
+            list-style: none;
+            border: 3px inset red;
+            margin-left: 2px;
+            cursor: pointer;
+        }
+
+        #ulRadio li img {
+            width: 100px;
+        }
+
+        #leftImg {
+            cursor: pointer;
+        }
+
+        #rightImg {
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        window.onload = function () {
+            var radioGroup = document.getElementById("ulRadio");
+            var divRadio = "";
+
+            for (var i = 1; i <= 8; i++) {
+                if (i == 1) {
+                    divRadio += "<li><input type='radio' value='" + i + "' class='" + i + "' name='radio'checked='checked'/><br><img src='../image/c" + i + ".png'></li>";
+                } else {
+                    divRadio += "<li><input type='radio' value='" + i + "' class='" + i + "' name='radio'/><br><img src='../image/c" + i + ".png'></li>";
+                }
+
+            }
+            radioGroup.innerHTML = divRadio;
+
+            {
+                var num;
+
+                for (i = 0; i < frm.radio.length; i++) {
+                    if (frm.radio[i].checked) {
+                        num = i + 1;
+                    }
+                }
+                $("#mainImg").attr({
+                    "src": "../image/c" + num + ".png"
+                });
+            }
+
+
+            $("input").click(function () {
+                $("#mainImg").attr({
+                    "src": "../image/c" + this.classList.value + ".png"
+                });
+            });
+
+            $("#leftImg").click(function () {
+                //메인 이미지 업데이트
+                //라디오 버튼 업데이트
+
+                var num;
+
+                for (i = 0; i < frm.radio.length; i++) {
+                    if (frm.radio[i].checked) {
+                        num = i + 1;
+                    }
+                }
+
+                if (num == 1) {
+                    num = 8;
+                } else {
+                    num--;
+                }
+                console.log(num);
+                $("#mainImg").attr({
+                    "src": "../image/c" + num + ".png"
+                });
+
+                $('input[name="radio"]').val([num.toString()]);
+
+            });
+
+            $("#rightImg").click(function () {
+                //메인 이미지 업데이트
+                //라디오 버튼 업데이트
+
+                var num;
+
+                for (i = 0; i < frm.radio.length; i++) {
+                    if (frm.radio[i].checked) {
+                        num = i + 1;
+                    }
+                }
+
+                if (num == frm.radio.length) {
+                    num = 1;
+                } else {
+                    num++;
+                }
+
+                console.log(num);
+                $("#mainImg").attr({
+                    "src": "../image/c" + num + ".png"
+                });
+
+                $('input[name="radio"]').val([num.toString()]);
+            });
+
+        }
+
+
+    </script>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <form action="#" name="frm">
+                <div id="divRadio">
+                    <ul id="ulRadio">
+
+                    </ul>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="" id="mainImg">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <img src="../image2/LEFT.GIF" id="leftImg">
+            <img src="../image2/RIGHT.GIF" id="rightImg">
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <style type="text/css">
+        #cd {
+            width: 490px;
+            height: 500px;
+            background-image: url("../image2/cd-sprite.png");
+            background-repeat: no-repeat;
+        }
+
+        .cd1 {
+            background-position: 0% 0%; /*액자 뒤로 그림이 움직인다 생각하면 됨.*/
+        }
+
+        .cd2 {
+            background-position: 0% 50%;
+        }
+
+        .cd3 {
+            background-position: 0% 100%;
+        }
+
+        h2 {
+            width: 300px;
+            border: 1px solid black;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            $("#cd").hide();
+            $("h2").hover(function () {
+                var cls = $(this).attr("class");
+                $("#cd").stop().removeClass().slideDown("slow").addClass(cls);
+                $(this).css({
+                    "border": "5px inset red"
+                });
+            }, function () {
+                $("#cd").stop().removeClass().slideUp("fast");
+                $(this).css({
+                    "border": "1px solid black"
+                });
+            });
+        })
+
+    </script>
+</head>
+<body>
+<h2 class="cd1">Lost Stars</h2>
+<h2 class="cd2">A Higher Place</h2>
+<h2 class="cd3">Like a Fool</h2>
+<div id="cd"></div>
+</body>
+</html>
