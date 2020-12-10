@@ -26,5 +26,8 @@ public class exam {
         double d = 0.111;
         double r = a + d;
         System.out.println();
+
+        double dd = Double.parseDouble("126.98142512109087");
+        System.out.println(dd);
     }
 }

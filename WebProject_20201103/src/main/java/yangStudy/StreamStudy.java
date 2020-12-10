@@ -63,5 +63,13 @@ public class StreamStudy {
 //        undefined
 //        arr
 //        [6, 5, 4, 3, 2, 1]
+
+
+        System.out.println();
+        List<String> arr3 = new ArrayList<>();
+        arr3.add("asdf");
+        arr3.add("asdf1");
+        System.out.println(arr3.contains("asdf"));
+        System.out.println(arr3);
     }
 }
