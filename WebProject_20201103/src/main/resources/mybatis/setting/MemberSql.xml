@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+    <select id="totalCount" resultType="int">
+        select count(*) from carmember
+    </select>
+
+    <insert id="insertMember" parameterType="mdto">
+        insert into carmember (name, hp, addr, gaipday)
+        values (#{name},#{hp},#{addr},now())
+    </insert>
+
+    <select id="getMember" parameterType="String" resultType="mdto">
+        select * from carmember where num=#{num}
+    </select>
+
+    <select id="getAllMember" resultType="mdto">
+        select * from carmember order by num asc
+    </select>
+
+    <update id="updateMember" parameterType="mdto">
+        update carmember
+        set name=#{name},hp=#{hp},addr=#{addr},gaipday=#{gaipday}
+        where num=#{num}
+    </update>
+
+    <delete id="deleteMember" parameterType="String">
+        delete from carmember where num=${num}
+    </delete>
+
+</mapper>

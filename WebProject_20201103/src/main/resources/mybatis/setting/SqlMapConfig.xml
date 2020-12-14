@@ -4,6 +4,7 @@
     <properties resource="mybatis/setting/mysqlserver.properties"/>
     <typeAliases>
         <typeAlias type="data.car.CarDto" alias="cdto"/>  <!--별명 지어줌-->
+        <typeAlias type="data.member.MemberDto" alias="mdto"/>  <!--별명 지어줌-->
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -18,5 +19,6 @@
     </environments>
     <mappers>
         <mapper resource="mybatis/setting/CarSql.xml"/>
+        <mapper resource="mybatis/setting/MemberSql.xml"/>
     </mappers>
 </configuration>

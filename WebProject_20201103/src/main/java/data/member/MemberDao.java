@@ -1,12 +1,11 @@
-package data.car;
+package data.member;
 
 import mybatis.setting.ConnectionManager;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
 
-
-public class CarDao {
+public class MemberDao {
     ConnectionManager manager = ConnectionManager.getInstance();
     SqlSession session;
 
@@ -15,49 +14,50 @@ public class CarDao {
         return session;
     }
 
+
     ///////////////////////////////////////////////////////////////
-    //전체 갯수.
+
     public int getTotalCount() {
-        int n = 0;
         session = this.getSession();
-
-        //car. 생략가능.
-        n = session.selectOne("car.totalCountOfCar");
+        int total = session.selectOne("member.totalCount");
         session.close();
-        return n;
+
+        return total;
     }
 
-    public void insertCar(CarDto dto) {
+    public List<MemberDto> getAllMember() {
+        List<MemberDto> list = null;
         session = this.getSession();
-        session.insert("car.insertOfCar", dto);
+        list = session.selectList("member.getAllMember");
         session.close();
-    }
 
-    public List<CarDto> getAllDatas() {
-        List<CarDto> list = null;
-        session = this.getSession();
-        list = session.selectList("car.selectAllOfCar");
-        session.close();
         return list;
     }
 
-    public CarDto getData(String num) {
-        CarDto dto = null;
+    public void insertMember(MemberDto dto) {
         session = this.getSession();
-        dto = session.selectOne("car.selectOneOfCar", num);
+        session.insert("member.insertMember", dto);
+        session.close();
+    }
+
+
+    public MemberDto getMember(String num) {
+        MemberDto dto = null;
+        session = this.getSession();
+        dto = session.selectOne("member.getMember", num);
         session.close();
         return dto;
     }
 
-    public void updateData(CarDto dto) {
+    public void updateMember(MemberDto dto) {
         session = this.getSession();
-        session.update("updateOfCar", dto);
+        session.update("member.updateMember", dto);
         session.close();
     }
 
-    public void deleteCar(String num){
+    public void deleteMember(String num) {
         session = this.getSession();
-        session.delete("deleteOfCar", num);
+        session.update("member.deleteMember", num);
         session.close();
     }
 }

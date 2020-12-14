@@ -5,4 +5,21 @@
     <select id="totalCountOfCar" resultType="int">
         select count(*) from mycar
     </select>
+    <insert id="insertOfCar" parameterType="cdto">
+        insert into mycar (carname, carprice, carcolor, carguip)
+        values (#{carname},#{carprice},#{carcolor},#{carguip})
+    </insert>
+    <select id="selectAllOfCar" resultType="cdto">
+        select * from mycar order by num asc
+    </select>
+    <select id="selectOneOfCar" parameterType="String" resultType="cdto">
+        select * from mycar where num=#{num}
+    </select>
+    <update id="updateOfCar" parameterType="cdto">
+        update mycar set carname=#{carname},carprice=#{carprice},
+                         carcolor=#{carcolor},carguip=#{carguip} where num=#{num}
+    </update>
+    <delete id="deleteOfCar" parameterType="String">
+        delete from mycar where num=#{num}
+    </delete>
 </mapper>
